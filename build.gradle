@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id 'groovy'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.liquibase:liquibase-core'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// Spock core to use Spock in Unit Testing
+//    testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4'
+	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-2.5'
+
+	// Library to use when using Cucumber with a Java
+	testImplementation 'io.cucumber:cucumber-java:6.1.2'
+
+	// Cucumber supports running tests with JUnit - imported via the following dependency.
+	// To run a test with JUnit a special runner class should be created in src/test/groovy/integration.
+	testImplementation 'io.cucumber:cucumber-junit:6.1.2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
